@@ -4,14 +4,15 @@ const player2 = [];
 // Dimensions of board
 const rows = 3;
 const cols = 3;
+const dim = rows*cols;
 // Board layout
-const isSquareAvailable = Array(rows*cols).fill(true);
+const isSquareAvailable = Array(dim).fill(true);
 const adjacentSquaresNeededToWin = 3;
 
 let isPlayer1Turn = true;
 let isGameOver = false;
 
-for (let i = 0; i < tds.length; i++) {
+for (let i = 0; i < dim; i++) {
 	document.querySelectorAll("td")[i].addEventListener("click", function () {
 		if (isSquareAvailable[i] && !isGameOver) {
 			isSquareAvailable[i] = false;
