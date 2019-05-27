@@ -1,13 +1,12 @@
-class Board {
+export default class Board {
     constructor(rows, cols) {
         this.rows = rows;
         this.cols = cols;
-        this.dim = rows * cols;
     }
     
     set rows(value) {
         if (!this.isValidInput(value)) {
-            throw new Error("rows must be a postive integer")
+            throw new Error("rows must be a postive integer");
         }
         this._rows = value;
     }
@@ -18,7 +17,7 @@ class Board {
     
     set cols(value) {
         if (!this.isValidInput(value)) {
-            throw new Error("cols must be a postive integer")
+            throw new Error("cols must be a postive integer");
         }
         this._cols = value;
     }
@@ -26,14 +25,8 @@ class Board {
     get cols() {
         return this._cols;
     }
-    
-    get dim() {
-        return dim;
-    }
 
     isValidInput(value) {
         return Number.isInteger(value) && value >= 1;
     }
 }
-
-export default Board;
