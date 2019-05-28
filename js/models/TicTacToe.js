@@ -69,6 +69,12 @@ export default class TicTacToe extends Board {
         return this._gameOver;
     }
 
+    reset() {
+        this._board = this.createInitialArray(this.rows*this.cols);
+        this._currentPlayer = 0;
+        this._gameOver = false;   
+    }
+
     fillSquare(player, square) {
         if (this._board[square].isSquareFilled) {
             throw new Error("Square already filled");
