@@ -52,6 +52,14 @@ export default class TicTacToe extends Board {
         return (square >=0 && square < this.rows*this.cols);
     }
 
+    isAdjacentSquareToTheRightOfSquare(square, adjacentSquare) {
+        return square%this.cols < adjacentSquare%this.cols;
+    }
+
+    isAdjacentSquareToTheLeftOfSquare(square, adjacentSquare) {
+        return square%this.cols > adjacentSquare%this.cols;
+    }
+
     // Public methods
     currentPlayer() {
         return this._currentPlayer++%this.players;
@@ -73,23 +81,30 @@ export default class TicTacToe extends Board {
         return this._board[square].isSquareFilled;
     }
 
+    isTieGame() {
+        for (let i = 0; i < this.rows * this.cols; i++) {
+            if (!this._board[i].isSquareFilled) return false;
+        }
+        this._gameOver = true;
+        return true;
+    }
+
     numOfHorizontalSquares(player, square) {
         const adjacentSquareDist = 1;
-        const col = square%this.cols;
         let adjacentSquares = 1;
         
         // Count up all squares that are adjacent and to the right of square
         let possibleAdjacentSquare = square + adjacentSquareDist;
-        while (this.isSquareWithinBoard(possibleAdjacentSquare) && this.isSquareFilledBy(player, possibleAdjacentSquare) && 
-                col < possibleAdjacentSquare%this.cols) {
+        while (this.isSquareWithinBoard(possibleAdjacentSquare) && this.isSquareFilledBy(player, possibleAdjacentSquare)
+                && this.isAdjacentSquareToTheRightOfSquare(square, possibleAdjacentSquare)) {
             adjacentSquares++;
             possibleAdjacentSquare += adjacentSquareDist;
         }
     
         // Count up all squares that are adjacent and to the left of square
         possibleAdjacentSquare = square - adjacentSquareDist;
-        while (this.isSquareWithinBoard(possibleAdjacentSquare) && this.isSquareFilledBy(player, possibleAdjacentSquare) && 
-                col > possibleAdjacentSquare%this.cols) {
+        while (this.isSquareWithinBoard(possibleAdjacentSquare) && this.isSquareFilledBy(player, possibleAdjacentSquare) 
+                && this.isAdjacentSquareToTheLeftOfSquare(square, possibleAdjacentSquare)) {
             adjacentSquares++;
             possibleAdjacentSquare -= adjacentSquareDist;
         } 
@@ -103,46 +118,43 @@ export default class TicTacToe extends Board {
         
         // Count up all squares that are adjacent and on the lower diagnol of square
         let possibleAdjacentSquare = square + adjacentSquareDist;
-        while (this.isSquareWithinBoard(possibleAdjacentSquare) && this.isSquareFilledBy(player, possibleAdjacentSquare)) {
+        while (this.isSquareWithinBoard(possibleAdjacentSquare) && this.isSquareFilledBy(player, possibleAdjacentSquare)
+                && this.isAdjacentSquareToTheRightOfSquare(square, possibleAdjacentSquare)) {
             adjacentSquares++;
             possibleAdjacentSquare += adjacentSquareDist;
         }
-    
+
         // Count up all squares that are adjacent and on the upper diagnol of square
         possibleAdjacentSquare = square - adjacentSquareDist;
-        while (this.isSquareWithinBoard(possibleAdjacentSquare) && this.isSquareFilledBy(player, possibleAdjacentSquare)) {
+        while (this.isSquareWithinBoard(possibleAdjacentSquare) && this.isSquareFilledBy(player, possibleAdjacentSquare)
+                && this.isAdjacentSquareToTheLeftOfSquare(square, possibleAdjacentSquare)) {
             adjacentSquares++;
             possibleAdjacentSquare -= adjacentSquareDist;
-        } 
+        }
     
         return adjacentSquares;
     }
 
     numOfCrossDiagnolSquares(player, square) {
         const adjacentSquareDist = this.cols-1;
-        const col = square%this.cols;
         let adjacentSquares = 1;
-        
+
         // Count up all squares that are adjacent and on the lower cross-diagnol of square
         let possibleAdjacentSquare = square + adjacentSquareDist;
-        while (this.isSquareWithinBoard(possibleAdjacentSquare) && this.isSquareFilledBy(player, possibleAdjacentSquare)) {
+        while (this.isSquareWithinBoard(possibleAdjacentSquare) && this.isSquareFilledBy(player, possibleAdjacentSquare) 
+                && this.isAdjacentSquareToTheLeftOfSquare(square, possibleAdjacentSquare)) {
             adjacentSquares++;
             possibleAdjacentSquare += adjacentSquareDist;
         }
-    
-        // If square is on the last column, it has no adjacent squares on the upper cross-diagnol,
-        // and the next while loop breaks down 
-        if (col == this.cols-1) {
-            return adjacentSquares;
-        }
-    
+        
         // Count up all squares that are adjacent and on the upper cross-diagnol of square
         possibleAdjacentSquare = square - adjacentSquareDist;
-        while (this.isSquareWithinBoard(possibleAdjacentSquare) && this.isSquareFilledBy(player, possibleAdjacentSquare)) {
+        while (this.isSquareWithinBoard(possibleAdjacentSquare) && this.isSquareFilledBy(player, possibleAdjacentSquare)
+                && this.isAdjacentSquareToTheRightOfSquare(square, possibleAdjacentSquare)) {
             adjacentSquares++;
             possibleAdjacentSquare -= adjacentSquareDist;
-        } 
-    
+        }
+        
         return adjacentSquares;
     }
 
@@ -150,14 +162,14 @@ export default class TicTacToe extends Board {
         const adjacentSquareDist = this.cols;
         let adjacentSquares = 1;
         
-        // Count up all squares that are adjacent and on top of square
+        // Count up all squares that are adjacent and on bottom of square
         let possibleAdjacentSquare = square + adjacentSquareDist;
         while (this.isSquareWithinBoard(possibleAdjacentSquare) && this.isSquareFilledBy(player, possibleAdjacentSquare)) {
             adjacentSquares++;
             possibleAdjacentSquare += adjacentSquareDist;
         }
     
-        // Count up all squares that are adjacent and on the bottom of square
+        // Count up all squares that are adjacent and on the top of square
         possibleAdjacentSquare = square - adjacentSquareDist;
         while (this.isSquareWithinBoard(possibleAdjacentSquare) && this.isSquareFilledBy(player, possibleAdjacentSquare)) {
             adjacentSquares++;
