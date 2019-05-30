@@ -9,6 +9,7 @@ export default class TicTacToe extends Board {
         //Private variables
         // this._board = Array(this.rows*this.cols).fill({isSquareFilled: false}); // All elements reference the same object
         this._board = this.createInitialArray(this.rows*this.cols);
+        // this._scores = Array(this.players).fill(0);
         this._currentPlayer = 0;
         this._gameOver = false;
     }
@@ -64,6 +65,10 @@ export default class TicTacToe extends Board {
     currentPlayer() {
         return this._currentPlayer++%this.players;
     }
+
+    // playerScore(player) {
+    //     // return this._scores[player];
+    // }
 
     gameOver() {
         return this._gameOver;
@@ -197,6 +202,7 @@ export default class TicTacToe extends Board {
             this.numOfCrossDiagnolSquares(player, square) >= this.adjacentSquaresNeededToWin ||
             this.numOfVerticalSquares(player, square) >= this.adjacentSquaresNeededToWin) {
                 this._gameOver = true;
+                // this._scores[player]++;
                 return true;
         }
         return false;

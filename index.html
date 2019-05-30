@@ -6,77 +6,58 @@
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
-	<!-- <div class="form-container">
-		<form>
+	<div class="settings-container">
+		<form class="form-container">
 			<div class="input-container players-container">
-				<label for="players">Enter # of Players: </label>
-				<input type="number" id="players" placeholder="Enter # of players (max 5)">
+				<label for="players">Select # of players: </label>
+				<select name="players" id="players">
+					<option value="2" selected="selected">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+				</select>
 			</div>
-			<div class="input-container bot-container">
-				<label for="bots">Enter # of Bots: </label>
-				<input type="number" id="bots" placeholder="Enter # of bots">
-			</div>
-			<p>Players + Bots must be less than 6.</p>
-			<div class="input-container color-container">
-				<label for="color0">Select a Color: </label>
-				<input type="color" id="color0" placeholder="Select color">
-			</div>
-			<div class="input-container color-container">
-				<label for="color1">Select a Color: </label>
-				<input type="color" id="color1" placeholder="Select color">
-			</div>
-			<div class="button-container">
-				<button>Apply</button>
-				<button>Cancel</button>
-			</div>
-		</form>
-	</div>
-
-	<div class="form-container">
-		<form>
 			<div class="input-container grid-container">
-				<label>New Grid Size: 
-						<input type="number" placeholder="Enter # of rows">
-						<input type="number" placeholder="Enter # of columns">
+				<label>New grid size: 
+						<input type="number" placeholder="rows" id="rows" value="3"><span> x </span>
+						<input type="number" placeholder="columns" id="cols" value="3">
 				</label>
 			</div>
+			<div class="input-container winning-container">
+				<label for="winning">Enter winning score: </label>
+				<input type="number" id="winning" placeholder="e.g. 5" value="1">
+			</div>
+			<div class="input-container adj-squares-container">
+				<label for="adj-squares">Enter # of adjacent squares needed to win: </label>
+				<input type="number" id="adj-squares" placeholder="e.g. 3" value="3">
+			</div>
 			<div class="button-container">
-				<button>Apply</button>
-				<button>Cancel</button>
+				<button class="settings-button">Apply</button>
+				<button class="reset-button">Reset</button>
+				<button class="cancel-button">Cancel</button>
 			</div>
 		</form>
-	</div> -->
+		<div class="text-container">
+				<p class="settings-text">Settings</p><span class="settings-text-icon"> X </span>
+		</div>
+	</div>
 
 	<div class="winner-container popup-container">
-		<p>Player <span class="winner">0</span> wins!!!</p>
-		<button class="reset">Play Again</button>
+		<div class="popup-background">
+			<p>Player <span class="winner">0</span> wins!!!</p>
+			<button class="reset">Play Again</button>
+		</div>
 	</div>
 
 	<div class="tie-container popup-container">
-		<p>Tie Game</p>
-		<button class="reset">Play Again</button>
+		<div class="popup-background">
+			<p>Tie Game</p>
+			<button class="reset">Play Again</button>
+		</div>
 	</div>
 
 	<div class="table-container">
 		<h1>Tic Tac Toe</h1>
-		<table>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-		</table>
 	</div>
-	<script type="module" src="js/tic.js"></script>
+	<script type="module" src="js/index.js"></script>
 </body>
 </html>

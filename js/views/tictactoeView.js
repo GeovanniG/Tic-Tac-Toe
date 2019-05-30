@@ -28,3 +28,22 @@ export const reset = dim => {
 	document.querySelector(".tie-container").style.display = "none";
 	unfillAllSquares(dim);
 }
+
+export const displayTable = (rows, cols) => {
+	const markup = createTable(rows, cols);
+	let tableContainer = document.querySelector(".table-container");
+	tableContainer.removeChild(tableContainer.childNodes[2]);
+	tableContainer.insertAdjacentHTML("beforeend", markup);
+}
+
+const createTable = (rows, cols) => {
+	let tds = '';
+	for (let i = 0; i < cols; i++) {
+		tds += '<td></td>';
+	}
+	let trs = '';
+	for (let i = 0; i < rows; i++) {
+		trs += `<tr>${tds}</tr>`;
+	}
+	return `<table>${trs}</table>`;
+}
