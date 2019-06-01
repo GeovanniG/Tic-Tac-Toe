@@ -18,6 +18,7 @@ h1 {
 	color: #582d01;
 }
 
+
 /* Table Set-up */
 .table-container {
 	text-align: center;
@@ -33,6 +34,16 @@ table {
 	margin: 0 auto;
 	width: 70%;
 	height: 70%;
+}
+
+@media screen and (max-width: 560px) {
+	h1 {
+		padding: 1.2rem;
+	}	
+	table {
+		width: 85%;
+		height: 75%;
+	}
 }
 
 td {
@@ -152,13 +163,14 @@ tr td:last-child {
 .score-container {
 	width: 30%;
 	position: absolute;
-	bottom: 0;
+	top: 0;
 	right: 0;
-	transition: bottom 0.5s;
+	transition: top 0.5s;
+	background: #ddd;
 }
 
 .score-text {	
-	background: #ddd;
+	background: white;
 	padding: 5px;
 	width: 70%;
 }
@@ -173,7 +185,7 @@ tr td:last-child {
 .score-text-container {
 	display: flex;
 	/* justify-content: space-between; */
-	background: #fff;
+	background: #ddd;
 	width: 100%;
 	text-align: center;
 }

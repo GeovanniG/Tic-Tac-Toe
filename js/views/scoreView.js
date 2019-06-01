@@ -15,16 +15,26 @@ export const setPlayersScores = (scores) => {
 }
 
 export const showScores = () => {
-	document.querySelector(".score-container").style.bottom = `0px`;
+	document.querySelector(".score-container").style.top = `0px`;
 	document.querySelector(".score-text-icon").style.display = "inline-block";
 }
 
 export const hideScores = () => {
 	let score = document.querySelector(".score-container");
-	score.style.bottom = `-${document.querySelector(".players-score-to-win-container").offsetHeight}px`;
+	score.style.top = `-${document.querySelector(".players-score-to-win-container").offsetHeight}px`;
 	document.querySelector(".score-text-icon").style.display = "none";
 }
 
 export const setGamesToWin = (score) => {
 	document.querySelector(".score-to-win").textContent = score;
 } 
+
+export const showScoreBoard = () => {
+	hideScores();
+}
+
+
+export const hideScoreBoard = () => {
+	let score = document.querySelector(".score-container");
+	score.style.top = `-${score.offsetHeight}px`;
+}

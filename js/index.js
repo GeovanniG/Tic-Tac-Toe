@@ -4,23 +4,17 @@ import * as ticView from "./views/tictactoeView.js";
 import * as formView from "./views/formView.js";
 import * as scoreView from "./views/scoreView.js";
 
-let rows = 3;
-let cols = 3;
-let players = 2;
-let adjacentSquaresNeededToWin = 3;
-let gamesToWin = 1;
-let tic;
-let currentPlayer = 0;
-let playersColors = ["#90ee90", "#ffb6c1"];
-let form = new Form();
+const form = new Form();
 
 //// Form/Settings 
 document.querySelector(".settings-text").addEventListener("click", () => {
 	formView.showSettings();
+	scoreView.hideScoreBoard();
 });
 
 document.querySelector(".settings-text-icon").addEventListener("click", () => {
 	formView.hideSettings();
+	scoreView.showScoreBoard();
 });
 
 document.querySelector("#players").addEventListener("change", () => {
@@ -29,37 +23,31 @@ document.querySelector("#players").addEventListener("change", () => {
 
 document.querySelector(".settings-button").addEventListener("click", (e) => {
 	e.preventDefault();
-	playersColors = form.getPlayersColors();
-	[rows, cols] = form.getGridSettings();
-	players = form.getNumOfPlayers();
-	gamesToWin = form.getGamesToWin(gamesToWin);
-	adjacentSquaresNeededToWin = form.getAdjacentSquaresNeededToWin();
+	let playersColors = form.getPlayersColors();
+	let [rows, cols] = form.getGridSettings();
+	let players = form.getNumOfPlayers();
+	let gamesToWin = form.getGamesToWin();
+	let adjacentSquaresNeededToWin = form.getAdjacentSquaresNeededToWin();
 	scoreView.setGamesToWin(gamesToWin);
 
 	gameSetup(rows, cols, players, adjacentSquaresNeededToWin, playersColors, gamesToWin);
-});
-
-document.querySelector(".cancel-button").addEventListener("click", (e) => {
-	e.preventDefault();	
-	formView.displayNumOfPlayers(players);
-	formView.displayColors(players, playersColors);
-	formView.displayGridNums(rows, cols);
-	formView.displayGamesToWin(gamesToWin);
-	formView.displayAdjacentSquaresNeededToWin(adjacentSquaresNeededToWin);
-	scoreView.setGamesToWin(gamesToWin);
 });
 
 
 //// Score board 
 document.querySelector(".reset-button").addEventListener("click", (e) => {
 	e.preventDefault();	
-	formView.displaySettings(players=2, rows=3, cols=3, playersColors=2, adjacentSquaresNeededToWin=3, gamesToWin=1);
-	scoreView.setGamesToWin(1);
+	let gamesToWin = 1;
+	let playersColors = ["#90ee90", "#ffb6c1"];
+	let adjacentSquaresNeededToWin = 3;
+	formView.displaySettings(players=2, rows=3, cols=3, adjacentSquaresNeededToWin, playersColors, gamesToWin);
+	scoreView.setGamesToWin(gamesToWin);
 	gameSetup();
 });
 
 document.querySelector(".score-text").addEventListener("click", () => {
 	scoreView.showScores();
+	formView.hideSettings();
 });
 
 document.querySelector(".score-text-icon").addEventListener("click", () => {
@@ -69,36 +57,22 @@ document.querySelector(".score-text-icon").addEventListener("click", () => {
 
 //// Tic tac toe
 const gameSetup = (rows=3, cols=3, players=2, adjacentSquaresNeededToWin=3, playersColors=["#90ee90", "#ffb6c1"], gamesToWin=1) => {
-	let hasPlayerWon = false;
-	tic = new TicTacToe(rows, cols, players, adjacentSquaresNeededToWin);
+	let tic = new TicTacToe(rows, cols, players, adjacentSquaresNeededToWin);
 
-	// Display the view components that can vary when settings are changed
-	scoreView.setPlayersScores(tic.playersScores());
-	scoreView.hideScores();
-	formView.displayColors(form.getNumOfPlayers(), playersColors);
-	formView.hideSettings();
-	ticView.displayTable(rows, cols);
-
-	let tds = document.querySelectorAll("td");
-	for (let i = 0; i < tds.length; i++) {
-		tds[i].addEventListener("click", function() {
-			if (!tic.isSquareFilled(i) && !tic.gameOver()) {
-				currentPlayer = tic.currentPlayer();
-				tic.fillSquare(currentPlayer, i);
-				ticView.fillSquare(this, currentPlayer, playersColors);
-				hasPlayerWon = tic.hasPlayerWon(currentPlayer, i);
-				if (hasPlayerWon && tic.scoreOfPlayer(currentPlayer) == gamesToWin) {
-					scoreView.setPlayersScores(tic.playersScores());
-					ticView.winner(currentPlayer);
-				} else if (hasPlayerWon) {
-					scoreView.setPlayersScores(tic.playersScores());
-					ticView.celebrate(currentPlayer);
-				} else if (tic.isTieGame()) {
-					ticView.tie();
-				}
-			}
-		});
-	}
+	scoreBoardSetup(tic);
+	formSetup(playersColors);
+	ticTacToeSetup(tic, playersColors, gamesToWin);
+	
+	// Revert back to previous settings
+	document.querySelector(".cancel-button").addEventListener("click", (e) => {
+		e.preventDefault();	
+		formView.displayNumOfPlayers(players);
+		formView.displayColors(players, playersColors);
+		formView.displayGridNums(rows, cols);
+		formView.displayGamesToWin(gamesToWin);
+		formView.displayAdjacentSquaresNeededToWin(adjacentSquaresNeededToWin);
+		scoreView.setGamesToWin(gamesToWin);
+	});
 
 	let nextGame = document.querySelectorAll(".next-game-button");
 	for (let i = 0; i < nextGame.length; i++) {
@@ -121,7 +95,45 @@ const gameSetup = (rows=3, cols=3, players=2, adjacentSquaresNeededToWin=3, play
 		e.preventDefault();
 		ticView.resetRound();
 		formView.showSettings();
+		scoreView.hideScoreBoard();
 	});
+}
+
+const scoreBoardSetup = (tic) => {
+	scoreView.setPlayersScores(tic.playersScores());
+	scoreView.hideScores();
+};
+
+const formSetup = (playersColors) => {
+	formView.displayColors(form.getNumOfPlayers(), playersColors);
+	formView.hideSettings();
+};
+
+const ticTacToeSetup = (tic, playersColors, gamesToWin) => {
+	let currentPlayer = 0;
+	let hasPlayerWon = false;
+	
+	ticView.displayTable(tic.rows, tic.cols);
+	let tds = document.querySelectorAll("td");
+	for (let i = 0; i < tds.length; i++) {
+		tds[i].addEventListener("click", function() {
+			if (!tic.isSquareFilled(i) && !tic.gameOver()) {
+				currentPlayer = tic.currentPlayer();
+				tic.fillSquare(currentPlayer, i);
+				ticView.fillSquare(this, currentPlayer, playersColors);
+				hasPlayerWon = tic.hasPlayerWon(currentPlayer, i);
+				if (hasPlayerWon && tic.scoreOfPlayer(currentPlayer) == gamesToWin) {
+					scoreView.setPlayersScores(tic.playersScores());
+					ticView.winner(currentPlayer);
+				} else if (hasPlayerWon) {
+					scoreView.setPlayersScores(tic.playersScores());
+					ticView.celebrate(currentPlayer);
+				} else if (tic.isTieGame()) {
+					ticView.tie();
+				}
+			}
+		});
+	}
 }
 
 gameSetup();

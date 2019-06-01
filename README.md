@@ -1,4 +1,7 @@
 # Tic-Tac-Toe
-Create a simple tic tac toe game
+Create a tic tac toe game to practice Javascript.
 
-A tic tac toe game will be created to practice using HTML, CSS, and Javascript.
+## What remains to be done:
+- form validation
+- improve css 
+- improve UI

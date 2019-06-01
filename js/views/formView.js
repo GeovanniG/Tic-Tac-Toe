@@ -46,10 +46,10 @@ export const displayAdjacentSquaresNeededToWin = (squares) => {
 	document.getElementById("adj-squares").value = squares;
 }
 
-export const displaySettings = (players, rows, cols, colors, adjacentSquaresNeededToWin, score) => {
+export const displaySettings = (players, rows, cols, adjacentSquaresNeededToWin, colors, score) => {
 	displayNumOfPlayers(players);
 	displayGridNums(rows, cols);
-	displayColors(colors);
+	displayColors(players, colors);
 	displayAdjacentSquaresNeededToWin(adjacentSquaresNeededToWin);
 	displayGamesToWin(score);
 }

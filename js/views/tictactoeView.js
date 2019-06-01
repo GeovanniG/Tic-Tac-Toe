@@ -5,10 +5,6 @@ export const fillSquare = (td, player, playersColors) => {
 export const celebrate = (player, dim) => {
 	document.querySelector(".winner-container").style.display = "block";
 	document.querySelector(".winner").textContent = player;
-	// document.querySelector(".next-game-button").addEventListener("click", (e) => {
-	// 	e.preventDefault();
-	// 	reset(dim);
-	// });
 }
 
 export const winner = player => {
@@ -25,10 +21,6 @@ export const unfillAllSquares = () => {
 
 export const tie = () => {
 	document.querySelector(".tie-container").style.display = "block";
-	// document.querySelectorAll(".next-game-button")[1].addEventListener("click", (e) => {
-	// 	e.preventDefault();
-	// 	reset(dim);
-	// });
 }
 
 export const resetRound = () => {
