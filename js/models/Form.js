@@ -18,7 +18,7 @@ export default class Form {
         return [Number(document.getElementById("rows").value), Number(document.getElementById("cols").value)];
     }
 
-    getWinningScore() {
+    getGamesToWin() {
         return Number(document.getElementById("winning").value);
     }
 

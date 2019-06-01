@@ -9,6 +9,8 @@ body {
 	line-height: 1.5;
 	letter-spacing: 0.1em;
 	position: relative;
+	/* Needed for score board */
+	overflow: hidden; 
 }
 
 h1 {
@@ -24,7 +26,7 @@ h1 {
 	max-width: 1024px;
 	background-image: linear-gradient(#F0F0F0, #FFFFFF);
 	border-radius: 2rem;
-	height: 98vh;
+	height: 100vh;
 }
 
 table {
@@ -75,6 +77,10 @@ tr td:last-child {
 	display: none;
 }
 
+.rematch-container {
+	display: none;
+}
+
 /* Settings */
 .form-container {
 	display: grid;
@@ -118,7 +124,7 @@ tr td:last-child {
 
 .text-container {
 	display: flex;
-	justify-content: space-between;
+	/* justify-content: space-between; */
 	background: #ddd;
 	width: 50%;
 	text-align: center;
@@ -137,3 +143,37 @@ tr td:last-child {
 	width: 70%;
 }
 
+.settings-note {
+	font-size: .8rem;
+	color: red;
+}
+
+/* Score Board */
+.score-container {
+	width: 30%;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	transition: bottom 0.5s;
+}
+
+.score-text {	
+	background: #ddd;
+	padding: 5px;
+	width: 70%;
+}
+
+.score-text-icon {
+	background: lightslategray;
+	display: none;
+	padding: 5px;
+	width: 30%;
+}
+
+.score-text-container {
+	display: flex;
+	/* justify-content: space-between; */
+	background: #fff;
+	width: 100%;
+	text-align: center;
+}

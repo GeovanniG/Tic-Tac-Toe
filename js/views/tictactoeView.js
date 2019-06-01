@@ -5,28 +5,37 @@ export const fillSquare = (td, player, playersColors) => {
 export const celebrate = (player, dim) => {
 	document.querySelector(".winner-container").style.display = "block";
 	document.querySelector(".winner").textContent = player;
-	document.querySelector(".reset").addEventListener("click", () => {
-		reset(dim);
-	});
+	// document.querySelector(".next-game-button").addEventListener("click", (e) => {
+	// 	e.preventDefault();
+	// 	reset(dim);
+	// });
 }
 
-export const unfillAllSquares = dim => {
-	for (let i = 0; i < dim; i++) {
-		document.querySelectorAll("td")[i].style.background = "#F0F0F0";
+export const winner = player => {
+	document.querySelector(".rematch-container").style.display = "block";
+	document.querySelector(".overall-winner").textContent = player;
+}
+
+export const unfillAllSquares = () => {
+	const tds = document.querySelectorAll("td");
+	for (let i = 0; i < tds.length; i++) {
+		tds[i].style.background = "#f0f0f0";
 	}
 }
 
-export const tie = dim => {
+export const tie = () => {
 	document.querySelector(".tie-container").style.display = "block";
-	document.querySelectorAll(".reset")[1].addEventListener("click", () => {
-		reset(dim);
-	});
+	// document.querySelectorAll(".next-game-button")[1].addEventListener("click", (e) => {
+	// 	e.preventDefault();
+	// 	reset(dim);
+	// });
 }
 
-export const reset = dim => {
+export const resetRound = () => {
 	document.querySelector(".winner-container").style.display = "none";
 	document.querySelector(".tie-container").style.display = "none";
-	unfillAllSquares(dim);
+	document.querySelector(".rematch-container").style.display = "none";
+	unfillAllSquares();
 }
 
 export const displayTable = (rows, cols) => {

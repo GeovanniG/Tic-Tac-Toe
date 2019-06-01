@@ -16,6 +16,8 @@
 					<option value="4">4</option>
 				</select>
 			</div>
+			<div class="all-colors-container">
+			</div>
 			<div class="input-container grid-container">
 				<label>New grid size: 
 						<input type="number" placeholder="rows" id="rows" value="3"><span> x </span>
@@ -23,7 +25,7 @@
 				</label>
 			</div>
 			<div class="input-container winning-container">
-				<label for="winning">Enter winning score: </label>
+				<label for="winning">Enter score to win: </label>
 				<input type="number" id="winning" placeholder="e.g. 5" value="1">
 			</div>
 			<div class="input-container adj-squares-container">
@@ -34,6 +36,8 @@
 				<button class="settings-button">Apply</button>
 				<button class="reset-button">Reset</button>
 				<button class="cancel-button">Cancel</button>
+				<p class="settings-note">Applying new settings will cause game to restart</p>
+				<p class="settings-note">Reset will apply original tic tac toe game</p>
 			</div>
 		</form>
 		<div class="text-container">
@@ -44,19 +48,39 @@
 	<div class="winner-container popup-container">
 		<div class="popup-background">
 			<p>Player <span class="winner">0</span> wins!!!</p>
-			<button class="reset">Play Again</button>
+			<button class="next-game-button">Next Round</button>
 		</div>
 	</div>
 
 	<div class="tie-container popup-container">
 		<div class="popup-background">
 			<p>Tie Game</p>
-			<button class="reset">Play Again</button>
+			<button class="next-game-button">Next Round</button>
+		</div>
+	</div>
+
+	<div class="rematch-container popup-container">
+		<div class="popup-background">
+			<p>Game Over</p>
+			<p>Player <span class="overall-winner">0</span> wins!!!</p>
+			<button class="rematch-button">Rematch</button>
+			<button class="rematch-settings-button">Settings</button>
 		</div>
 	</div>
 
 	<div class="table-container">
 		<h1>Tic Tac Toe</h1>
+	</div>
+
+	<div class="score-container">
+		<div class="score-text-container">
+			<p class="score-text">Scores:</p><span class="score-text-icon"> X </span>
+		</div>
+		<div class="players-score-to-win-container">
+			<p>Score to win: <span class="score-to-win">1</span></p>
+			<div class="players-score-container">
+			</div>
+		</div>
 	</div>
 	<script type="module" src="js/index.js"></script>
 </body>

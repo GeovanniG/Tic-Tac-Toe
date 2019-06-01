@@ -1,10 +1,7 @@
-export const displayColors = (numOfPlayers, colors=['#90ee90', '#ffb6c1', '#778899', '#aad8e6']) => {
+export const displayColors = (players, colors=['#90ee90', '#ffb6c1', '#778899', '#aad8e6']) => {
 	let colorMarkup = '';
-	let form = document.querySelector(".form-container");
-	// Make room for new colors
-	form.removeChild(form.childNodes[2]);
 
-	for (let i = 0; i < numOfPlayers; i++) {
+	for (let i = 0; i < players; i++) {
 		colorMarkup += 
 			`<div class="input-container color-container">
 				<label for="color${i}">Color for player ${i}: </label>
@@ -12,9 +9,12 @@ export const displayColors = (numOfPlayers, colors=['#90ee90', '#ffb6c1', '#7788
 			</div>`;
 	}
 	colorMarkup = 
-		`<div class="all-colors-cointainer">
+		`<div class="all-colors-container">
 			${colorMarkup}
 		</div>`;
+
+	let allColorsContainer = document.getElementsByClassName("all-colors-container")[0];
+	allColorsContainer.parentNode.removeChild(allColorsContainer);
 	document.querySelector(".players-container").insertAdjacentHTML("afterend", colorMarkup);
 }
 
@@ -29,8 +29,8 @@ export const hideSettings = () => {
 	document.querySelector(".settings-text-icon").style.display = "none";
 }
 
-export const displayNumOfPlayers = (numOfPlayers) => {
-	document.getElementById("players").value = numOfPlayers;
+export const displayNumOfPlayers = (players) => {
+	document.getElementById("players").value = players;
 }
 
 export const displayGridNums = (rows, cols) => {
@@ -38,10 +38,18 @@ export const displayGridNums = (rows, cols) => {
 	document.getElementById("cols").value = cols;
 }
 
-export const displayWinningScore = (score) => {
+export const displayGamesToWin = (score) => {
 	document.getElementById("winning").value = score;
 }
 
 export const displayAdjacentSquaresNeededToWin = (squares) => {
 	document.getElementById("adj-squares").value = squares;
+}
+
+export const displaySettings = (players, rows, cols, colors, adjacentSquaresNeededToWin, score) => {
+	displayNumOfPlayers(players);
+	displayGridNums(rows, cols);
+	displayColors(colors);
+	displayAdjacentSquaresNeededToWin(adjacentSquaresNeededToWin);
+	displayGamesToWin(score);
 }
