@@ -1,0 +1,191 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: "Helvetica", "Arial", sans-serif;
+	line-height: 1.5;
+	letter-spacing: 0.1em;
+	position: relative;
+	/* Needed for score board */
+	overflow: hidden; 
+}
+
+h1 {
+	padding: 2.5rem;
+	color: #582d01;
+}
+
+
+/* Table Set-up */
+.table-container {
+	text-align: center;
+	margin: 0 auto;
+	/*width: 80vw */
+	max-width: 1024px;
+	background-image: linear-gradient(#F0F0F0, #FFFFFF);
+	border-radius: 2rem;
+	height: 100vh;
+}
+
+table {
+	margin: 0 auto;
+	width: 70%;
+	height: 70%;
+}
+
+@media screen and (max-width: 560px) {
+	h1 {
+		padding: 1.2rem;
+	}	
+	table {
+		width: 85%;
+		height: 75%;
+	}
+}
+
+td {
+	width: 1%;
+	height: 1%;
+}
+
+td {
+	border-right: 1px solid #613101;
+	border-bottom: 1px solid #613101;
+}
+
+tr:last-child td {
+	border-bottom: none;
+}
+
+tr td:last-child {
+	border-right: none;
+}
+
+/* Pop-up */
+.popup-container {
+	width: 100%;
+	text-align: center;
+	position: absolute;
+	top: 50%;
+}
+
+.popup-background {
+	background: #cf9d6b;
+	display: inline-block;
+	padding: 5px;
+	margin: 0 auto;
+	border-radius: 15px;
+}
+
+.winner-container {
+	display: none;
+}
+
+.tie-container {
+	display: none;
+}
+
+.rematch-container {
+	display: none;
+}
+
+/* Settings */
+.form-container {
+	display: grid;
+	background: #ccc;
+	padding: 10px;
+	grid-template-areas: 
+		"players grid-rc"
+		"colors adj-sq"
+		"win btn";
+	grid-gap: 15px 20px;
+}
+
+.players-container {
+	grid-area: players;
+}
+
+.grid-container {
+	grid-area: grid-rc;
+}
+
+.all-colors-container {
+	grid-area: colors;
+}
+
+.adj-squares-container {
+	grid-area: adj-sq;
+}
+
+.winning-container{
+	grid-area: win;
+}
+
+.button-container {
+	grid-area: btn;
+}
+
+.settings-container {
+	position: absolute;
+	transition: top 0.5s;
+}
+
+.text-container {
+	display: flex;
+	/* justify-content: space-between; */
+	background: #ddd;
+	width: 50%;
+	text-align: center;
+}
+
+.settings-text-icon {
+	background: lightslategray;
+	display: none;
+	width: 30%;
+	padding: 3px;
+}
+
+.settings-text {	
+	background: white;
+	padding: 3px;
+	width: 70%;
+}
+
+.settings-note {
+	font-size: .8rem;
+	color: red;
+}
+
+/* Score Board */
+.score-container {
+	width: 30%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	transition: top 0.5s;
+	background: #ddd;
+}
+
+.score-text {	
+	background: white;
+	padding: 5px;
+	width: 70%;
+}
+
+.score-text-icon {
+	background: lightslategray;
+	display: none;
+	padding: 5px;
+	width: 30%;
+}
+
+.score-text-container {
+	display: flex;
+	/* justify-content: space-between; */
+	background: #ddd;
+	width: 100%;
+	text-align: center;
+}
